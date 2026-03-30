@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build job
-    runs-on: palmeto
+    runs-on: ubuntu-latest
 
     steps:
       - name: checkout code
