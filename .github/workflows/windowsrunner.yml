@@ -6,7 +6,7 @@ on:
 jobs:
   build-windows:
     name: Build, Test & Coverage
-    runs-on: [self-hosted, WIN-5LQ9955JE3K]
+    runs-on: windows-latest
 
     steps:
       # ── Clean workspace (raw self-hosted runners don't auto-clean) ──
