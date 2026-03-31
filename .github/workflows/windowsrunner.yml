@@ -49,13 +49,7 @@ jobs:
           path: target/surefire-reports/*.xml
           reporter: java-junit
 
-      # ── Upload JaCoCo HTML report ──
-      - name: Upload JaCoCo Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-coverage-windows
-          path: target/site/jacoco/
-
+  
       # ── Coverage threshold check (unstable warning) ──
       - name: Check coverage threshold
         run: |
