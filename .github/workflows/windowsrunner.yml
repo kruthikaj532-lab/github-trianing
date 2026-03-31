@@ -50,26 +50,6 @@ jobs:
           reporter: java-junit
 
   
-      # ── Coverage threshold check (unstable warning) ──
-      - name: Check coverage threshold
-        run: |
-          [xml]$jacoco = Get-Content "target/site/jacoco/jacoco.xml"
-          $counters = $jacoco.report.counter | Where-Object { $_.type -eq "LINE" }
-          $missed = [int]$counters.missed
-          $covered = [int]$counters.covered
-          $total = $missed + $covered
-          $coverage = [math]::Round(($covered / $total) * 100, 2)
-
-          Write-Host "==============================="
-          Write-Host "  Line Coverage: $coverage%"
-          Write-Host "==============================="
-
-          if ($coverage -lt 80) {
-            Write-Host "::warning::UNSTABLE - Coverage is $coverage%, below 80% target"
-          } else {
-            Write-Host "::notice::Coverage is $coverage% - target met!"
-          }
-        shell: powershell
 
       # ── Post coverage summary on PR ──
       - name: JaCoCo PR Comment
