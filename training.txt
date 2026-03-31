@@ -1,0 +1,989 @@
+Welcome to Github Action Trainings
+===
+
+Lab URL	https://digitallabs.palmeto.co.in
+
+No    	Participant Name	            Username	Password
+1	    Sreekanth, Chirigireddy	        BOA-Git01	P@lmeto@123
+2	    Panneerselvam, Santhoshkumar	BOA-Git02	P@lmeto@123
+3	    J, KRUTHIKA	                    BOA-Git03	P@lmeto@123
+4		Subramanian, Aiswarya          	BOA-Git04	P@lmeto@123
+5	    Kavin, J S	                    BOA-Git05	P@lmeto@123
+6	    Kamalakannan, Bharathi	        BOA-Git06	P@lmeto@123
+7	    Gowthaman, Hariprasath        	BOA-Git07	P@lmeto@123
+8	    Senthilnathan, Chinniah         BOA-Git08	P@lmeto@123
+9	    Uthayakumar, Vimalkumar(Vimal)	BOA-Git09	P@lmeto@123
+10	    Panakkul, Shrijesh	            BOA-Git10	P@lmeto@123
+11	    Bhave, Prasad                	BOA-Git11	P@lmeto@123
+12	    Pravin X	                    BOA-Git12	P@lmeto@123
+13	    Sumathi Shunmugavel	            BOA-Git13	P@lmeto@123
+14	    Sachin P	                    BOA-Git14	P@lmeto@123
+15	    Duraisubramanian Muthu	        BOA-Git15	P@lmeto@123
+16	    Selvam, Rangith 	            BOA-Git16	P@lmeto@123
+17	    K, Karunakaran	                BOA-Git17	P@lmeto@123
+18	    Preetha D	                    BOA-Git18	P@lmeto@123
+19	    Nayak, Ashisa K	                BOA-Git19	P@lmeto@123
+20	    Periyasamy, Mahesh	            BOA-Git20	P@lmeto@123
+21	    Gangaramani, Kamlesh K 	        BOA-Git21	P@lmeto@123
+22	    Sanapiratti Ravi, Balaji 	    BOA-Git22	P@lmeto@123
+23	    Shashanka Shekhar Mishra	    BOA-Git23	P@lmeto@123
+24	    Saurabh Priyadarshi	            BOA-Git24	P@lmeto@123
+25	    Sumera Shaik	                BOA-Git25	P@lmeto@123
+26	    Sibtain Ali	                    BOA-Git26	P@lmeto@123
+27	    Prasanth S	                    BOA-Git27	P@lmeto@123
+
+set 1 link
+---
+https://github.com/sathishbabudevops/githubtraining-3103
+
+
+test coverage
+---
+
+
+app.java contenet
+---
+package com.example;
+
+public class App {
+
+    // --- Arithmetic ---
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public double divide(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return (double) a / b;
+    }
+
+    // --- String utilities ---
+    public boolean isPalindrome(String input) {
+        if (input == null) {
+            return false;
+        }
+        String cleaned = input.replaceAll("\\s+", "").toLowerCase();
+        String reversed = new StringBuilder(cleaned).reverse().toString();
+        return cleaned.equals(reversed);
+    }
+
+    public String greet(String name) {
+        if (name == null || name.isBlank()) {
+            return "Hello, World!";
+        }
+        return "Hello, " + name.trim() + "!";
+    }
+
+    // --- Number classification ---
+    public String classifyNumber(int n) {
+        if (n > 0) {
+            return "positive";
+        } else if (n < 0) {
+            return "negative";
+        } else {
+            return "zero";
+        }
+    }
+
+    public boolean isEven(int n) {
+        return n % 2 == 0;
+    }
+
+    // --- FizzBuzz (classic branch-heavy example) ---
+    public String fizzBuzz(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Input must be positive");
+        }
+        if (n % 15 == 0) {
+            return "FizzBuzz";
+        } else if (n % 3 == 0) {
+            return "Fizz";
+        } else if (n % 5 == 0) {
+            return "Buzz";
+        } else {
+            return String.valueOf(n);
+        }
+    }
+
+    // --- Intentionally UNTESTED method (to show coverage gaps) ---
+    public int factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Negative input not allowed");
+        }
+        if (n <= 1) {
+            return 1;
+        }
+        return n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        App app = new App();
+        System.out.println("Sum: " + app.add(5, 3));
+        System.out.println("Palindrome: " + app.isPalindrome("racecar"));
+        System.out.println("FizzBuzz(15): " + app.fizzBuzz(15));
+    }
+}
+
+
+apptest.java conetent
+---
+
+package com.example;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class AppTest {
+
+    private App app;
+
+    @BeforeEach
+    void setUp() {
+        app = new App();
+    }
+
+    // --- Arithmetic tests ---
+    @Test
+    void testAdd() {
+        assertEquals(8, app.add(5, 3));
+        assertEquals(0, app.add(-1, 1));
+    }
+
+    @Test
+    void testSubtract() {
+        assertEquals(2, app.subtract(5, 3));
+    }
+
+    @Test
+    void testMultiply() {
+        assertEquals(15, app.multiply(5, 3));
+    }
+
+    @Test
+    void testDivide() {
+        assertEquals(2.5, app.divide(5, 2), 0.001);
+    }
+
+    @Test
+    void testDivideByZero() {
+        assertThrows(ArithmeticException.class, () -> app.divide(5, 0));
+    }
+
+    // --- String utility tests ---
+    @Test
+    void testIsPalindromeTrue() {
+        assertTrue(app.isPalindrome("racecar"));
+        assertTrue(app.isPalindrome("A man a plan a canal Panama"));
+    }
+
+    @Test
+    void testIsPalindromeFalse() {
+        assertFalse(app.isPalindrome("hello"));
+    }
+
+    @Test
+    void testIsPalindromeNull() {
+        assertFalse(app.isPalindrome(null));
+    }
+
+    @Test
+    void testGreetWithName() {
+        assertEquals("Hello, Alice!", app.greet("Alice"));
+    }
+
+    @Test
+    void testGreetWithNull() {
+        assertEquals("Hello, World!", app.greet(null));
+    }
+
+    @Test
+    void testGreetWithBlank() {
+        assertEquals("Hello, World!", app.greet("   "));
+    }
+
+    // --- Number classification tests ---
+    @Test
+    void testClassifyPositive() {
+        assertEquals("positive", app.classifyNumber(42));
+    }
+
+    @Test
+    void testClassifyNegative() {
+        assertEquals("negative", app.classifyNumber(-7));
+    }
+
+    @Test
+    void testClassifyZero() {
+        assertEquals("zero", app.classifyNumber(0));
+    }
+
+    @Test
+    void testIsEven() {
+        assertTrue(app.isEven(4));
+        assertFalse(app.isEven(3));
+    }
+
+    // --- FizzBuzz tests ---
+    @Test
+    void testFizzBuzzFizz() {
+        assertEquals("Fizz", app.fizzBuzz(9));
+    }
+
+    @Test
+    void testFizzBuzzBuzz() {
+        assertEquals("Buzz", app.fizzBuzz(10));
+    }
+
+    @Test
+    void testFizzBuzzFizzBuzz() {
+        assertEquals("FizzBuzz", app.fizzBuzz(15));
+    }
+
+    @Test
+    void testFizzBuzzNumber() {
+        assertEquals("7", app.fizzBuzz(7));
+    }
+
+    @Test
+    void testFizzBuzzInvalid() {
+        assertThrows(IllegalArgumentException.class, () -> app.fizzBuzz(0));
+    }
+
+    // NOTE: factorial() is intentionally NOT tested here
+    //       to demonstrate a coverage gap in the JaCoCo report.
+}
+
+update pom.xml with unit ttrest coverage
+---
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>java-demo-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <jacoco.version>0.8.12</jacoco.version>
+    </properties>
+
+    <dependencies>
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Surefire plugin for tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+
+            <!-- ========================================= -->
+            <!-- JaCoCo – Code Coverage                    -->
+            <!-- ========================================= -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+
+                    <!-- 1) Instrument: Attaches the JaCoCo agent before tests run -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- 2) Report: Generates HTML/XML/CSV reports after tests -->
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- 3) OPTIONAL: Enforce minimum coverage thresholds -->
+                    <!--    Uncomment this block to fail the build if     -->
+                    <!--    coverage drops below the configured limits.   -->
+                    <!--
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.70</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    -->
+
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+github workflow
+---
+name: Java Build + Code Coverage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-coverage:
+    name: Build, Test & Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ──────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── JDK Setup ────────────────────────────────
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      # ── Build + Test + JaCoCo Report ─────────────
+      # 'verify' phase runs: compile → test → jacoco:report
+      - name: Build and generate coverage report
+        run: mvn clean verify
+
+      # ── Publish JUnit Test Results ───────────────
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Test Results
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+      # ── Upload JaCoCo HTML report as artifact ────
+      - name: Upload JaCoCo Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-report
+          path: target/site/jacoco/
+
+      # ── Post coverage summary to PR ──────────────
+      - name: JaCoCo Coverage Summary (PR comment)
+        uses: madrapps/jacoco-report@v1.7.1
+        if: github.event_name == 'pull_request'
+        with:
+          paths: target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 60
+          min-coverage-changed-files: 80
+          title: "## Code Coverage Report"
+          update-comment: true
+
+      # ── Print quick coverage summary to log ──────
+      - name: Print coverage summary
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "  JaCoCo Coverage Report Generated"
+          echo "═══════════════════════════════════════"
+          echo ""
+          echo "HTML report: target/site/jacoco/index.html"
+          echo "XML  report: target/site/jacoco/jacoco.xml"
+          echo "CSV  report: target/site/jacoco/jacoco.csv"
+          echo ""
+          if [ -f target/site/jacoco/jacoco.csv ]; then
+            echo "── Per-class summary (from CSV) ──"
+            column -t -s',' target/site/jacoco/jacoco.csv
+          fi
+          
+save -- commit --push and run
+
+running jobs on self hosted runner
+---
+
+prepre seld hosted runner
+---
+
+ubundu node
+
+sudo su
+
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Git (required by actions/checkout)
+sudo apt install -y git
+
+# JDK 17
+sudo apt install -y openjdk-17-jdk
+java -version
+
+# Maven
+sudo apt install -y maven
+mvn -version
+
+# Python3 + bc (for coverage parsing script)
+sudo apt install -y python3 bc
+
+# (Optional) Clean workspace tool
+sudo apt install -y jq curl
+
+swotch to github-runner users and restart the service
+---
+
+su github-runner
+cd
+cd actions-runner
+sudo ./svc.sh stop
+sudo ./svc.sh start
+
+create aworkflow to run on linux runner
+--
+
+filename: linuxrunner.yml
+
+name: Java Build + Coverage (Linux)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    name: Build, Test & Coverage
+    runs-on: [self-hosted, ubunturunner]
+
+    steps:
+      # ── Clean workspace (raw self-hosted runners don't auto-clean) ──
+      - name: Clean workspace
+        run: |
+          echo "Cleaning workspace: $GITHUB_WORKSPACE"
+          rm -rf "$GITHUB_WORKSPACE"/*
+
+      # ── Checkout ──
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── Verify tools are available ──
+      - name: Verify prerequisites
+        run: |
+          echo "=== Java ==="
+          java -version
+          echo ""
+          echo "=== Maven ==="
+          mvn -version
+          echo ""
+          echo "=== Git ==="
+          git --version
+
+      # ── Build + Test + JaCoCo ──
+      - name: Build and generate coverage
+        run: mvn clean verify
+
+      # ── Publish JUnit results ──
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Tests (Linux)
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+      # ── Upload JaCoCo HTML report ──
+      - name: Upload JaCoCo Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-linux
+          path: target/site/jacoco/
+
+      # ── Coverage threshold check (unstable warning) ──
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(python3 -c "
+          import xml.etree.ElementTree as ET
+          tree = ET.parse('target/site/jacoco/jacoco.xml')
+          counter = tree.findall('.//counter[@type=\"LINE\"]')[-1]
+          missed = int(counter.get('missed'))
+          covered = int(counter.get('covered'))
+          print(round(covered / (covered + missed) * 100, 2))
+          ")
+          echo "==============================="
+          echo "  Line Coverage: ${COVERAGE}%"
+          echo "==============================="
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "::warning::UNSTABLE - Coverage is ${COVERAGE}%, below 80% target"
+          else
+            echo "::notice::Coverage is ${COVERAGE}% - target met!"
+          fi
+
+      # ── Post coverage summary on PR ──
+      - name: JaCoCo PR Comment
+        uses: madrapps/jacoco-report@v1.7.1
+        if: github.event_name == 'pull_request'
+        with:
+          paths: target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 60
+          min-coverage-changed-files: 80
+          title: "## Code Coverage Report (Linux)"
+          update-comment: true
+          
+save -- commit -- push -- run the workflow
+
+windows runner
+---
+open power shell as administrator
+
+# Install Chocolatey (package manager)
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+install .net framework
+---
+windows run -- server manager -- local server -- ie enhanced policy -- off
+
+open internet explorer and downal and run the exe
+
+https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/8494001c276a4b96804cde7829c04d7f/ndp48-x86-x64-allos-enu.exe
+
+on prompt restart vm
+
+open power shell as administrator
+
+# Git
+choco install git -y
+
+# JDK 17
+choco install temurin17 -y
+
+# Maven
+choco install maven -y
+
+# Refresh PATH
+close and reopen the powershell
+
+# Verify
+java -version
+mvn -version
+git --version
+
+restart github agent service
+---
+
+windows serach -- serviuces -- github agent -- restart
+
+add workflow file
+---
+
+filename: windowsrunner.yml
+
+name: Java Build + Coverage (Windows)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build, Test & Coverage
+    runs-on: [self-hosted, windowsrunner]
+
+    steps:
+      # ── Clean workspace (raw self-hosted runners don't auto-clean) ──
+      - name: Clean workspace
+        run: |
+          Write-Host "Cleaning workspace: $env:GITHUB_WORKSPACE"
+          if (Test-Path "$env:GITHUB_WORKSPACE\*") {
+            Remove-Item -Recurse -Force "$env:GITHUB_WORKSPACE\*"
+          }
+        shell: powershell
+
+      # ── Checkout ──
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── Verify tools are available ──
+      - name: Verify prerequisites
+        run: |
+          Write-Host "=== Java ==="
+          java -version
+          Write-Host ""
+          Write-Host "=== Maven ==="
+          mvn -version
+          Write-Host ""
+          Write-Host "=== Git ==="
+          git --version
+        shell: powershell
+
+      # ── Build + Test + JaCoCo ──
+      - name: Build and generate coverage
+        run: mvn clean verify
+        shell: cmd
+
+      # ── Publish JUnit results ──
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Tests (Windows)
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+      # ── Upload JaCoCo HTML report ──
+      - name: Upload JaCoCo Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-windows
+          path: target/site/jacoco/
+
+      # ── Coverage threshold check (unstable warning) ──
+      - name: Check coverage threshold
+        run: |
+          [xml]$jacoco = Get-Content "target/site/jacoco/jacoco.xml"
+          $counters = $jacoco.report.counter | Where-Object { $_.type -eq "LINE" }
+          $missed = [int]$counters.missed
+          $covered = [int]$counters.covered
+          $total = $missed + $covered
+          $coverage = [math]::Round(($covered / $total) * 100, 2)
+
+          Write-Host "==============================="
+          Write-Host "  Line Coverage: $coverage%"
+          Write-Host "==============================="
+
+          if ($coverage -lt 80) {
+            Write-Host "::warning::UNSTABLE - Coverage is $coverage%, below 80% target"
+          } else {
+            Write-Host "::notice::Coverage is $coverage% - target met!"
+          }
+        shell: powershell
+
+      # ── Post coverage summary on PR ──
+      - name: JaCoCo PR Comment
+        uses: madrapps/jacoco-report@v1.7.1
+        if: github.event_name == 'pull_request'
+        with:
+          paths: target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 60
+          min-coverage-changed-files: 80
+          title: "## Code Coverage Report (Windows)"
+          update-comment: true
+          
+save -- commit -- push -- eun workflow
+
+
+dynamic runners on kubernetes
+---
+https://github.com/actions/actions-runner-controller
+
+clone this repo
+---
+
+sudo su
+
+cd
+
+git clone https://github.com/sathishbabudevops/github-docker-runner.git
+
+install docker
+--
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Docker
+sudo apt install -y docker.io docker-compose-v2
+
+# Start Docker and enable on boot
+sudo systemctl start docker
+sudo systemctl enable docker
+
+validate docker
+--
+docker run hello-world
+docker compose version
+
+Create a token
+---
+navigate to below usrl in the same browser where you are loged into git hub
+----
+https://github.com/settings/tokens
+
+generate new token -- generate new token (classic
+
+name: PAT
+No expiry
+all access
+
+add the token to env file
+---
+cd github-docker-runner
+
+cp .env.example .env
+
+nano .env
+
+update the token and repo details
+
+CTRL + o to save
+
+Ctrl + x to exit
+
+Build the Runner Image
+----
+
+chmod +x manage.sh
+
+./manage.sh build
+
+List the images
+---
+docker images
+
+Start 3 runners for parallel jobs
+---
+./manage.sh start 3
+
+list the containers
+---
+docker ps
+
+see the runners in github
+---
+repo -- settings -- actions -- runners
+
+Modified ehtry point.sh
+----
+#!/bin/bash
+set -e
+
+# ── Validate required env vars ──
+if [ -z "$GITHUB_TOKEN" ] || [ -z "$GITHUB_REPO" ]; then
+  echo "ERROR: GITHUB_TOKEN and GITHUB_REPO are required"
+  echo "  GITHUB_TOKEN = Personal Access Token (repo scope)"
+  echo "  GITHUB_REPO  = owner/repo (e.g. sathishbabudevops/javaapp)"
+  exit 1
+fi
+
+RUNNER_NAME="${RUNNER_NAME:-docker-runner-$(hostname | tail -c 8)}"
+RUNNER_LABELS="${RUNNER_LABELS:-self-hosted,linux,docker}"
+
+echo "============================================"
+echo "  GitHub Actions Dynamic Runner"
+echo "============================================"
+echo "  Repo:   ${GITHUB_REPO}"
+echo "  Runner: ${RUNNER_NAME}"
+echo "  Labels: ${RUNNER_LABELS}"
+echo "  Mode:   Ephemeral (single job, auto-cleanup)"
+echo "============================================"
+
+# ── Get registration token from GitHub API ──
+echo "Requesting registration token..."
+REG_TOKEN=$(curl -s -X POST \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Accept: application/vnd.github.v3+json" \
+  "https://api.github.com/repos/${GITHUB_REPO}/actions/runners/registration-token" | jq -r '.token')
+
+if [ "$REG_TOKEN" == "null" ] || [ -z "$REG_TOKEN" ]; then
+  echo "ERROR: Failed to get registration token. Check your GITHUB_TOKEN and GITHUB_REPO."
+  exit 1
+fi
+
+echo "Registration token acquired."
+
+# ── Cleanup function: remove runner on exit ──
+cleanup() {
+  echo ""
+  echo "Removing runner..."
+  REMOVE_TOKEN=$(curl -s -X POST \
+    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "Accept: application/vnd.github.v3+json" \
+    "https://api.github.com/repos/${GITHUB_REPO}/actions/runners/remove-token" | jq -r '.token')
+  ./config.sh remove --token "$REMOVE_TOKEN" 2>/dev/null || true
+  echo "Runner removed. Container will exit."
+}
+
+trap cleanup EXIT SIGTERM SIGINT
+
+# ── Configure runner ──
+./config.sh \
+  --url "https://github.com/${GITHUB_REPO}" \
+  --token "$REG_TOKEN" \
+  --name "$RUNNER_NAME" \
+  --labels "$RUNNER_LABELS" \
+  --ephemeral \
+  --unattended \
+  --replace \
+  --disableupdate
+
+# ── Start runner (ephemeral = exits after one job) ──
+echo ""
+echo "Runner is ready. Waiting for a job..."
+./run.sh
+
+Modified docker file
+---
+FROM ubuntu:22.04
+
+ARG RUNNER_VERSION=2.333.0
+ARG DEBIAN_FRONTEND=noninteractive
+
+# ── Core dependencies ──
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    jq \
+    sudo \
+    unzip \
+    wget \
+    bc \
+    python3 \
+    openjdk-17-jdk \
+    maven \
+    docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── Create runner user ──
+RUN useradd -m -s /bin/bash runner && \
+    usermod -aG sudo runner && \
+    usermod -aG docker runner && \
+    echo "runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# ── Install GitHub Actions Runner ──
+WORKDIR /home/runner/actions-runner
+RUN curl -o actions-runner.tar.gz -L \
+    "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz" && \
+    tar xzf actions-runner.tar.gz && \
+    rm actions-runner.tar.gz && \
+    ./bin/installdependencies.sh && \
+    chown -R runner:runner /home/runner
+
+# ── Disable auto-update (version controlled via image rebuild) ──
+ENV AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+RUN mkdir -p /opt/hostedtoolcache && chown runner:runner /opt/hostedtoolcache
+
+# ── Entrypoint script ──
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+USER runner
+ENTRYPOINT ["/entrypoint.sh"]
+
+stop and rebuild and start the containers
+---
+./manage.sh stop
+./manage.sh build
+./manage.sh start 3
+
+Create work flow
+---
+filename: dynamic.yml
+
+name: Java Build + Coverage (Dynamic Docker Runner)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build, Test & Coverage
+    runs-on: [self-hosted, linux, docker, dynamic]
+    # ↑ Matches the labels set in the Docker runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify environment
+        run: |
+          echo "=== Runner Info ==="
+          echo "Runner name: $RUNNER_NAME"
+          echo "Runner OS:   $(uname -a)"
+          echo ""
+          echo "=== Java ==="
+          java -version
+          echo ""
+          echo "=== Maven ==="
+          mvn -version
+
+      - name: Build and generate coverage
+        run: mvn clean verify
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Tests (Docker)
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+      - name: Upload JaCoCo Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-docker
+          path: target/site/jacoco/
+
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(python3 -c "
+          import xml.etree.ElementTree as ET
+          tree = ET.parse('target/site/jacoco/jacoco.xml')
+          counter = tree.findall('.//counter[@type=\"LINE\"]')[-1]
+          missed = int(counter.get('missed'))
+          covered = int(counter.get('covered'))
+          print(round(covered / (covered + missed) * 100, 2))
+          ")
+          echo "==============================="
+          echo "  Line Coverage: ${COVERAGE}%"
+          echo "==============================="
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "::warning::UNSTABLE - Coverage is ${COVERAGE}%, below 80% target"
+          else
+            echo "::notice::Coverage is ${COVERAGE}% - target met!"
+          fi
+          
+Github migrate
+----
+https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/jenkins-migration
+https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations
